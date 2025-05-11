@@ -39,7 +39,7 @@
                                 completo</label>
                             <div class="mt-1">
                                 <input type="text" name="name" id="name" value="{{ old('name') }}"
-                                    class="block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-pink-500 focus:ring-pink-500 dark:bg-gray-800 dark:text-white sm:text-sm"
+                                    class=" beauty-input block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-pink-500 focus:ring-pink-500 dark:bg-gray-800 dark:text-white sm:text-sm"
                                     required>
                             </div>
                             @error('name')
@@ -53,7 +53,7 @@
                                 electrónico</label>
                             <div class="mt-1">
                                 <input type="email" name="email" id="email" value="{{ old('email') }}"
-                                    class="block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-pink-500 focus:ring-pink-500 dark:bg-gray-800 dark:text-white sm:text-sm"
+                                    class="block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-pink-500 focus:ring-pink-500 dark:bg-gray-800 dark:text-white sm:text-sm beauty-input"
                                     required>
                             </div>
                             @error('email')
@@ -67,7 +67,7 @@
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Teléfono</label>
                             <div class="mt-1">
                                 <input type="tel" name="phone" id="phone" value="{{ old('phone') }}"
-                                    class="block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-pink-500 focus:ring-pink-500 dark:bg-gray-800 dark:text-white sm:text-sm"
+                                    class="beauty-input beauty-input block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-pink-500 focus:ring-pink-500 dark:bg-gray-800 dark:text-white sm:text-sm"
                                     required>
                             </div>
                             @error('phone')
@@ -89,9 +89,9 @@
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Rol</label>
                             <div class="mt-1">
                                 <select name="role" id="role"
-                                    class="block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-pink-500 focus:ring-pink-500 dark:bg-gray-800 dark:text-white sm:text-sm"
+                                    class="beauty-input block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-pink-500 focus:ring-pink-500 dark:bg-gray-800 dark:text-white sm:text-sm"
                                     required>
-                                    <option value="">Seleccionar rol</option>
+                                    <option value="Cliente">Seleccionar rol</option>
                                     <option value="Cliente">Cliente</option>
                                     <option value="Admin">Admin</option>
                                 </select>
@@ -107,7 +107,7 @@
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Contraseña</label>
                             <div class="mt-1 relative">
                                 <input type="password" name="password" id="password"
-                                    class="block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-pink-500 focus:ring-pink-500 dark:bg-gray-800 dark:text-white sm:text-sm pr-10"
+                                    class="beauty-input beauty-input block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-pink-500 focus:ring-pink-500 dark:bg-gray-800 dark:text-white sm:text-sm pr-10"
                                     required>
                                 <button type="button" id="togglePassword"
                                     class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-500">
@@ -134,7 +134,7 @@
                                 Contraseña</label>
                             <div class="mt-1">
                                 <input type="password" name="password_confirmation" id="password_confirmation"
-                                    class="block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-pink-500 focus:ring-pink-500 dark:bg-gray-800 dark:text-white sm:text-sm"
+                                    class="beauty-input block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-pink-500 focus:ring-pink-500 dark:bg-gray-800 dark:text-white sm:text-sm"
                                     required>
                             </div>
                             @error('password_confirmation')

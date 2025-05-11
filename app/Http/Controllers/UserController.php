@@ -43,4 +43,44 @@ class UserController extends Controller
         // Redirige a alguna página, por ejemplo, la lista de usuarios
         return redirect()->route('user.index')->with('success', 'Usuario creado exitosamente.');
     }
+
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        return view('admin.user.edit', compact('user'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'phone' => 'required|string',
+            'role' => 'required|in:Admin,Cliente',
+            'password' => 'nullable|string|min:8|confirmed',
+        ]);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->role = $request->role;
+
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password);
+        }
+
+        $user->save();
+
+        return redirect()->route('user.index')->with('success', 'Usuario actualizado exitosamente.');
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->route('user.index')->with('success', 'Usuario eliminado exitosamente.');
+    }
 }
