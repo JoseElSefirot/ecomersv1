@@ -12,6 +12,8 @@ new #[Layout('components.layouts.auth')] class extends Component {
     public string $name = '';
     public string $email = '';
     public string $password = '';
+    public string $phoneNumber = '';
+    public string $role = '';
     public string $password_confirmation = '';
 
     /**
@@ -23,9 +25,10 @@ new #[Layout('components.layouts.auth')] class extends Component {
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
+            'phoneNumber' => ['required', 'string', 'max:20'], // Add validation for phoneNumber
         ]);
+        $validated['role'] = 'cliente';
 
-        $validated['password'] = Hash::make($validated['password']);
 
         event(new Registered(($user = User::create($validated))));
 
@@ -61,6 +64,15 @@ new #[Layout('components.layouts.auth')] class extends Component {
             required
             autocomplete="email"
             placeholder="email@example.com"
+        />
+
+         <flux:input
+             wire:model="phoneNumber"
+             :label="__('Phone Number')"
+             type="text"
+            required
+            autocomplete="phoneNumber"
+            placeholder="3221927393"
         />
 
         <!-- Password -->

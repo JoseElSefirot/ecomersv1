@@ -11,10 +11,24 @@ Route::get('/', function () {
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
-    Route::resource('products', \App\Http\Controllers\ProductController::class);
-    Route::resource('categories', \App\Http\Controllers\CategoryController::class);
-    // Route::resource('orders', \App\Http\Controllers\OrderController::class);
-    Route::get('/users', [UserController::class, 'index'])->name('user.index');
+Route::resource('products', \App\Http\Controllers\ProductController::class);
+Route::resource('categories', \App\Http\Controllers\CategoryController::class);
+// Route::resource('orders', \App\Http\Controllers\OrderController::class);
+Route::get('orders', [\App\Http\Controllers\OrderController::class, 'index'])->name('orders.index');
+Route::get('orders/create', [\App\Http\Controllers\OrderController::class, 'create'])->name('orders.create');
+Route::post('orders', [\App\Http\Controllers\OrderController::class, 'store'])->name('orders.store');
+
+Route::get('/users', [UserController::class, 'index'])->name('user.index');
+// Crear usuarios
+Route::get('/users/create', [UserController::class, 'create'])->name('user.create');
+// Guardar usuarios
+Route::post('/users/create', [UserController::class, 'store'])->name('user.store');
+
+Route::get('/users/{id}', [UserController::class, 'show'])->name('user.show');
+Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+Route::post('/users/{id}', [UserController::class, 'update'])->name('user.update');
+Route::get('/users/{id}/delete', [UserController::class, 'destroy'])->name('user.destroy');
+
 
 
 Route::middleware(['auth'])->group(function () {
@@ -25,7 +39,7 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 use Illuminate\Http\Request;
 
