@@ -6,6 +6,8 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+
 class ProductController extends Controller
 {
     //
@@ -98,5 +100,32 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('product.index')->with('success', 'Usuario eliminado exitosamente.');
+    }
+
+    public function show($id)
+    {
+        $product = Product::findOrFail($id);
+        return view('product.buy', compact('product'));
+    }
+
+    public function processBuy(Request $request, $id)
+    {
+        $request->validate([
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        $product = Product::findOrFail($id);
+
+        if ($request->quantity > $product->stock) {
+            return redirect()->back()->with('error', 'La cantidad solicitada excede el stock disponible.');
+        }
+
+        // Reduce stock
+        $product->stock -= $request->quantity;
+        $product->save();
+
+        // Here you could add logic to create an order or cart entry
+
+        return redirect()->route('home')->with('success', 'Compra realizada con éxito.');
     }
 }

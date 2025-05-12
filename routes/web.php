@@ -14,20 +14,22 @@ Route::get('/api/categories/{category}/products', [CategoryController::class, 'p
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
-// Route::resource('products', \App\Http\Controllers\ProductController::class);
-Route::get('products', [\App\Http\Controllers\ProductController::class, 'index'])->name('product.index');
-Route::get('products/create', [\App\Http\Controllers\ProductController::class, 'create'])->name('product.create');
-Route::post('products', [\App\Http\Controllers\ProductController::class, 'store'])->name('product.store');
-Route::get('products/{product}', [\App\Http\Controllers\ProductController::class, 'show'])->name('product.show');
-Route::get('products/{product}/edit', [\App\Http\Controllers\ProductController::class, 'edit'])->name('product.edit');
-Route::put('products/{product}', [\App\Http\Controllers\ProductController::class, 'update'])->name('product.update');
-Route::delete('products/{product}', [\App\Http\Controllers\ProductController::class, 'destroy'])->name('product.destroy');
+// Route::resource('products', ProductController::class);
+Route::get('products', [ProductController::class, 'index'])->name('product.index');
+Route::get('products/create', [ProductController::class, 'create'])->name('product.create');
+Route::post('products', [ProductController::class, 'store'])->name('product.store');
+Route::get('products/{product}', [ProductController::class, 'show'])->name('product.show');
+Route::post('products/{product}/buy', [ProductController::class, 'processBuy'])->name('product.processBuy');
+Route::get('products/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
+Route::put('products/{product}', [ProductController::class, 'update'])->name('product.update');
+Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
 
 Route::resource('categories', \App\Http\Controllers\CategoryController::class);
 // Route::resource('orders', \App\Http\Controllers\OrderController::class);
-Route::get('orders', [\App\Http\Controllers\OrderController::class, 'index'])->name('orders.index');
-Route::get('orders/create', [\App\Http\Controllers\OrderController::class, 'create'])->name('orders.create');
-Route::post('orders', [\App\Http\Controllers\OrderController::class, 'store'])->name('orders.store');
+// Commented out order routes due to missing OrderController
+// Route::get('orders', [\App\Http\Controllers\OrderController::class, 'index'])->name('orders.index');
+// Route::get('orders/create', [\App\Http\Controllers\OrderController::class, 'create'])->name('orders.create');
+// Route::post('orders', [\App\Http\Controllers\OrderController::class, 'store'])->name('orders.store');
 
 Route::get('/users', [UserController::class, 'index'])->name('user.index');
 // Crear usuarios
@@ -52,12 +54,12 @@ Route::middleware(['auth'])->group(function () {
 
 require __DIR__ . '/auth.php';
 
-use Illuminate\Http\Request;
+// Removed placeholder /buy route as processBuy is now implemented in ProductController
+// use Illuminate\Http\Request;
+// Route::post('/buy', function (Request $request) {
+//     $productId = $request->input('product_id');
+//     // Placeholder logic for buying a product
+//     // In real app, you would handle cart or purchase here
 
-Route::post('/buy', function (Request $request) {
-    $productId = $request->input('product_id');
-    // Placeholder logic for buying a product
-    // In real app, you would handle cart or purchase here
-
-    return redirect()->back()->with('message', "Producto con ID {$productId} comprado exitosamente.");
-});
+//     return redirect()->back()->with('message', "Producto con ID {$productId} comprado exitosamente.");
+// });
