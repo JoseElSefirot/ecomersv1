@@ -278,33 +278,20 @@
         <div class="category-nav">
             <div class="container">
                 <ul class="nav justify-content-center">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Destacados</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Maquillaje</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Skincare</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Cabello</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Fragancias</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Accesorios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Ofertas</a>
-                    </li>
+                    @foreach ($categories as $category)
+                        <li class="nav-item">
+                            <button class="nav-link" onclick="showProducts('{{ $category->id }}')">
+                                {{ $category->name }}
+                            </button>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </div>
     </header>
 
     <main class="container py-4">
+        <div id="product-cards" class="row"></div>
         <!-- Alertas -->
         @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -340,12 +327,9 @@
                 </div>
                 <div class="col-md-3 mb-4">
                     <h5>Categorías</h5>
-                    <a href="#" class="footer-link">Maquillaje</a>
-                    <a href="#" class="footer-link">Skincare</a>
-                    <a href="#" class="footer-link">Cabello</a>
-                    <a href="#" class="footer-link">Fragancias</a>
-                    <a href="#" class="footer-link">Accesorios</a>
-                </div>
+                    @foreach ($categories as $category)
+                        <a href="#" class="footer-link">{{ $category->name }}</a>
+                    @endforeach
                 <div class="col-md-3 mb-4">
                     <h5>Información</h5>
                     <a href="#" class="footer-link">Sobre Nosotros</a>
@@ -376,5 +360,40 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function showProducts(categoryId) {
+            fetch(`/api/categories/${categoryId}/products`)
+                .then(response => response.json())
+                .then(data => {
+                    const productCards = document.getElementById('product-cards');
+                    productCards.innerHTML = ''; // Limpiar tarjetas anteriores
+
+                    if (data.length > 0) {
+                        data.forEach(product => {
+                            const card = `
+                                <div class="col-md-4 mb-3">
+                                    <div class="card">
+                                        <img src="${product.image}" class="card-img-top" alt="${product.name}" style="height: 200px; object-fit: cover;">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${product.name}</h5>
+                                            <p class="card-text">$${product.price}</p>
+                                            <button class="btn btn-beauty">Comprar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            productCards.innerHTML += card;
+                        });
+                    } else {
+                        productCards.innerHTML = '<p>No hay productos en esta categoría.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching products:', error);
+                    const productCards = document.getElementById('product-cards');
+                    productCards.innerHTML = '<p>Error al cargar productos.</p>';
+                });
+        }
+    </script>
 </body>
 </html>

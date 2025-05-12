@@ -4,14 +4,25 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use Livewire\Volt\Volt;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Api\CategoryController;
+
+Route::get('/', [ProductController::class, 'welcome'])->name('home');
+
+Route::get('/api/categories/{category}/products', [CategoryController::class, 'products']);
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
-Route::resource('products', \App\Http\Controllers\ProductController::class);
+// Route::resource('products', \App\Http\Controllers\ProductController::class);
+Route::get('products', [\App\Http\Controllers\ProductController::class, 'index'])->name('product.index');
+Route::get('products/create', [\App\Http\Controllers\ProductController::class, 'create'])->name('product.create');
+Route::post('products', [\App\Http\Controllers\ProductController::class, 'store'])->name('product.store');
+Route::get('products/{product}', [\App\Http\Controllers\ProductController::class, 'show'])->name('product.show');
+Route::get('products/{product}/edit', [\App\Http\Controllers\ProductController::class, 'edit'])->name('product.edit');
+Route::put('products/{product}', [\App\Http\Controllers\ProductController::class, 'update'])->name('product.update');
+Route::delete('products/{product}', [\App\Http\Controllers\ProductController::class, 'destroy'])->name('product.destroy');
+
 Route::resource('categories', \App\Http\Controllers\CategoryController::class);
 // Route::resource('orders', \App\Http\Controllers\OrderController::class);
 Route::get('orders', [\App\Http\Controllers\OrderController::class, 'index'])->name('orders.index');

@@ -23,7 +23,7 @@
                     wire:navigate>{{ __('Usuarios') }}
                 </flux:navlist.item>
                 <br>
-                <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')"
+                <flux:navlist.item icon="home" :href="route('product.index')    "
                     wire:navigate>{{ __('Productos') }}
                 </flux:navlist.item>
             </flux:navlist.group>

@@ -249,6 +249,32 @@ select:focus[data-flux-control] {
     color: var(--color-zinc-100);
 }
 
+/* Estilo para el textarea */
+.beauty-textarea {
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-input-border);
+    padding: 0.75rem 1rem;
+    width: 100%;
+    height: auto; /* Permite que el textarea ajuste su altura automáticamente */
+    transition: all 0.2s ease;
+    resize: vertical; /* Permite que el usuario ajuste la altura */
+    font-family: var(--font-sans); /* Asegura que el texto use la misma fuente */
+    color: var(--color-zinc-900); /* Color de texto por defecto */
+    background-color: var(--color-zinc-50); /* Color de fondo por defecto */
+}
+/* Estilo al hacer foco en el textarea */
+.beauty-textarea:focus {
+    border-color: var(--color-input-border-focus);
+    box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.2); /* Sombra al foco */
+    outline: none; /* Elimina el contorno por defecto */
+}
+/* Estilos para el textarea en modo oscuro */
+.dark .beauty-textarea {
+    background-color: var(--color-zinc-800);
+    color: var(--color-zinc-100); /* Color de texto en modo oscuro */
+    border: 1px solid var(--color-zinc-700); /* Color de borde en modo oscuro */
+}
+
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */
