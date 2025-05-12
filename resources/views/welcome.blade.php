@@ -190,19 +190,233 @@
             color: white;
         }
 
+        /* Estilos adicionales para la página de bienvenida */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E"), linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .feature-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .feature-card .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .feature-card .card-body {
+            padding: 1.5rem;
+        }
+
+        .feature-card .card-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .feature-card .card-text {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 107, 129, 0.1);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 30px;
+        }
+
+        .testimonial-card .quote {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .testimonial-card .customer {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-card .customer img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        .testimonial-card .customer-info h5 {
+            margin-bottom: 0;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .testimonial-card .customer-info p {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .testimonial-card .rating {
+            color: #ffc107;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .section-title p {
+            color: #777;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .product-card .card-img-top {
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .product-card .card-body {
+            padding: 1.5rem;
+        }
+
+        .product-card .card-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .product-card .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .product-card .rating {
+            color: #ffc107;
+            margin-bottom: 15px;
+        }
+
+        .newsletter-section {
+            background-color: var(--secondary-color);
+            padding: 60px 0;
+            margin: 80px 0;
+        }
+
+        .newsletter-form .form-control {
+            border-radius: 25px 0 0 25px;
+            border: none;
+            padding: 12px 20px;
+            height: auto;
+        }
+
+        .newsletter-form .btn {
+            border-radius: 0 25px 25px 0;
+            padding: 12px 25px;
+        }
+
         @media (max-width: 768px) {
             .navbar-brand {
                 font-size: 1.5rem;
             }
 
-            .category-nav {
-                overflow-x: auto;
-                white-space: nowrap;
-                -webkit-overflow-scrolling: touch;
+            .hero-section {
+                padding: 50px 0;
             }
 
-            .category-nav::-webkit-scrollbar {
-                display: none;
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+
+            .hero-section p {
+                font-size: 1rem;
+            }
+
+            .newsletter-form .form-control,
+            .newsletter-form .btn {
+                border-radius: 25px;
+                margin-bottom: 10px;
             }
         }
     </style>
@@ -273,7 +487,6 @@
                 </div>
             </div>
         </nav>
-
         <!-- Barra de categorías -->
         <div class="category-nav">
             <div class="container">
@@ -288,6 +501,8 @@
                 </ul>
             </div>
         </div>
+
+
     </header>
 
     <main class="container py-4">
@@ -308,7 +523,11 @@
         @endif
 
         <!-- Contenido principal -->
-        @yield('content')
+        <div class="container py-4">
+            @if(isset($product))
+                @include('product.buy', ['product' => $product])
+            @endif
+        </div>
     </main>
 
     <!-- Footer -->
@@ -317,7 +536,8 @@
             <div class="row">
                 <div class="col-md-3 mb-4">
                     <h5>Beauty Shop</h5>
-                    <p class="text-muted">Tu tienda de confianza para productos de belleza y maquillaje de alta calidad.</p>
+                    <p class="text-muted">Tu tienda de confianza para productos de belleza y maquillaje de alta calidad.
+                    </p>
                     <div class="mt-3">
                         <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
@@ -327,9 +547,11 @@
                 </div>
                 <div class="col-md-3 mb-4">
                     <h5>Categorías</h5>
-                    @foreach ($categories as $category)
-                        <a href="#" class="footer-link">{{ $category->name }}</a>
+                    @foreach ($categories ?? [] as $category)
+                    <a href="{{ route('categories.show', $category->id) }}" class="footer-link">{{ $category->name
+                        }}</a>
                     @endforeach
+                </div>
                 <div class="col-md-3 mb-4">
                     <h5>Información</h5>
                     <a href="#" class="footer-link">Sobre Nosotros</a>
@@ -340,9 +562,9 @@
                 </div>
                 <div class="col-md-3 mb-4">
                     <h5>Mi Cuenta</h5>
-                    <a href="#" class="footer-link">Iniciar Sesión</a>
-                    <a href="#" class="footer-link">Registrarse</a>
-                    <a href="#" class="footer-link">Mi Carrito</a>
+                    <a href="{{ route('login') }}" class="footer-link">Iniciar Sesión</a>
+                    <a href="{{ route('register') }}" class="footer-link">Registrarse</a>
+                    {{-- <a href="{{ route('cart.index') }}" class="footer-link">Mi Carrito</a> --}}
                     <a href="#" class="footer-link">Mis Pedidos</a>
                     <a href="#" class="footer-link">Favoritos</a>
                 </div>
@@ -353,7 +575,8 @@
                     <p class="mb-0 text-muted">&copy; {{ date('Y') }} Beauty Shop. Todos los derechos reservados.</p>
                 </div>
                 <div class="col-md-6 text-center text-md-end">
-                    <img src="https://via.placeholder.com/250x30" alt="Métodos de pago" class="img-fluid" style="max-height: 30px;">
+                    <img src="https://via.placeholder.com/250x30" alt="Métodos de pago" class="img-fluid"
+                        style="max-height: 30px;">
                 </div>
             </div>
         </div>
@@ -377,7 +600,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title">${product.name}</h5>
                                             <p class="card-text">$${product.price}</p>
-<button class="btn btn-beauty" onclick="window.location.href='/products/${product.id}'">Comprar</button>
+                                            <a href="/products/${product.id}" class="btn btn-beauty">Comprar</a>
                                         </div>
                                     </div>
                                 </div>

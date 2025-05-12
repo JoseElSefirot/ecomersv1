@@ -107,6 +107,16 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         return view('product.buy', compact('product'));
     }
+    
+    public function getProductData(Product $product)
+    {
+        return response()->json([
+            'name' => $product->name,
+            'description' => $product->description,
+            'price' => $product->price,
+            'stock' => $product->stock,
+        ]);
+    }
 
     public function processBuy(Request $request, $id)
     {
