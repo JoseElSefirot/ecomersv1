@@ -48,12 +48,16 @@ jobs:
             --exclude=storage \
             --exclude=.env
 
-      - name: Upload build via sshpass + rsync
+      - name: Test SSH connection (dry run)
         run: |
           sudo apt-get update
           sudo apt-get install -y sshpass
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" rsync -avz -e "ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no -o StrictHostKeyChecking=no" --dry-run ./deploy/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/laravel
+
+      - name: Upload build via sshpass + rsync
+        run: |
           sshpass -p "${{ secrets.SSH_PASSWORD }}" rsync -avz --delete \
-            -e "ssh -o StrictHostKeyChecking=no" \
+            -e "ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no -o StrictHostKeyChecking=no" \
             ./deploy/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/laravel
 
       - name: Run post-deploy commands on server
