@@ -48,8 +48,8 @@ jobs:
             --exclude=storage \
             --exclude=.env
 
-      - name: Upload via SFTP
-        uses: appleboy/sftp-action@v0.0.8
+      - name: Upload build via SFTP (appleboy)
+        uses: appleboy/scp-action@v1.0.0
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
@@ -58,4 +58,14 @@ jobs:
           source: "deploy/*"
           target: "/var/www/laravel"
           strip_components: 1
-          rm: true # borra archivos remotos que ya no estén en local
+          protocol: sftp
+
+      - name: Run post-deploy commands on server
+        run: |
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+            cd /var/www/laravel
+            php artisan migrate --force
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+          EOF
