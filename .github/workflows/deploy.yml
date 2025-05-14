@@ -1,0 +1,55 @@
+name: Deploy Laravel App
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      SSH_USER: ${{ secrets.SSH_USER }}
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+      SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+      REMOTE_PATH: /var/www/laravel
+
+    steps:
+      - name: 📥 Checkout repo
+        uses: actions/checkout@v3
+
+      - name: 🐘 Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: mbstring, xml, bcmath, curl, mysql, zip, fileinfo, tokenizer, ctype, json
+
+      - name: 🧱 Install Composer dependencies
+        run: composer install --no-dev --optimize-autoloader
+
+      - name: ⚙️ Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: 🧪 Build frontend assets
+        run: |
+          npm ci
+          npm run build
+
+      - name: 🧪 Verifica que exista el directorio de build
+        run: |
+          if [ ! -d "public/build" ]; then
+            echo "❌ No se encontró la carpeta 'public/build'. Asegúrate de que 'npm run build' haya generado archivos."
+            exit 1
+          fi
+
+      - name: 📦 Instalar sshpass
+        run: sudo apt-get install -y sshpass
+
+      - name: 🚀 Deploy vía sshpass + rsync
+        run: |
+          echo "🔒 Subiendo archivos a $SSH_USER@$SSH_HOST:$REMOTE_PATH..."
+          sshpass -p "$SSH_PASSWORD" rsync -avz --delete \
+            -e "ssh -o StrictHostKeyChecking=no" \
+            ./ \
+            "$SSH_USER@$SSH_HOST:$REMOTE_PATH"
