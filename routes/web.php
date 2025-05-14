@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\CategoryController;
 Route::get('/', [ProductController::class, 'welcome'])->name('home');
 
 Route::get('/api/categories/{category}/products', [CategoryController::class, 'products']);
+Route::get('/api/products', [\App\Http\Controllers\ProductController::class, 'allProducts']);
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

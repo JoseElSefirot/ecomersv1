@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -22,6 +23,15 @@ class ProductController extends Controller
         $products = Product::all(); // Or you can fetch featured products here
 
         return view('welcome', compact('categories', 'products'));
+    }
+
+    public function allProducts()
+    {
+        $products = Product::all()->map(function ($product) {
+            $product->image = $product->image ? Storage::url($product->image) : null;
+            return $product;
+        });
+        return response()->json($products);
     }
 
     public function create(){
@@ -107,7 +117,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         return view('product.buy', compact('product'));
     }
-    
+
     public function getProductData(Product $product)
     {
         return response()->json([

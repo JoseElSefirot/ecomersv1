@@ -907,7 +907,7 @@
             <div class="row">
                 <div class="col-md-3 mb-4">
                     <h5>Beauty Shop</h5>
-                    <p class="text-muted">Tu tienda de confianza para productos de belleza y maquillaje de alta calidad.
+                    <p style="color: rgba(255,255,255,0.7);"    >Tu tienda de confianza para productos de belleza y maquillaje de alta calidad.
                     </p>
                     <div class="mt-3">
                         <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
@@ -916,13 +916,13 @@
                         <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
-                <div class="col-md-3 mb-4">
+                {{-- <div class="col-md-3 mb-4">
                     <h5>Categorías</h5>
                     @foreach ($categories ?? [] as $category)
                     <a href="{{ route('categories.show', $category->id) }}" class="footer-link">{{ $category->name
                         }}</a>
                     @endforeach
-                </div>
+                </div> --}}
                 <div class="col-md-3 mb-4">
                     <h5>Información</h5>
                     <a href="#" class="footer-link">Sobre Nosotros</a>
@@ -943,11 +943,7 @@
             <hr class="mt-4 mb-3" style="border-color: rgba(255,255,255,0.1);">
             <div class="row">
                 <div class="col-md-6 text-center text-md-start">
-                    <p class="mb-0 text-muted">&copy; {{ date('Y') }} Beauty Shop. Todos los derechos reservados.</p>
-                </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <img src="https://via.placeholder.com/250x30" alt="Métodos de pago" class="img-fluid"
-                        style="max-height: 30px;">
+                    <p style="color: rgba(255,255,255,0.7);" class="mb-0">&copy; {{ date('Y') }} Beauty Shop. Todos los derechos reservados.</p>
                 </div>
             </div>
         </div>

@@ -491,9 +491,12 @@
         <div class="category-nav">
             <div class="container">
                 <ul class="nav justify-content-center">
+                    <li class="nav-item">
+                        <button class="nav-link active" id="all-products-btn" onclick="showAllProducts()">Todos los productos</button>
+                    </li>
                     @foreach ($categories as $category)
                         <li class="nav-item">
-                            <button class="nav-link" onclick="showProducts('{{ $category->id }}')">
+                            <button class="nav-link" onclick="showProducts('{{ $category->id }}', this)">
                                 {{ $category->name }}
                             </button>
                         </li>
@@ -536,7 +539,7 @@
             <div class="row">
                 <div class="col-md-3 mb-4">
                     <h5>Beauty Shop</h5>
-                    <p class="text-muted">Tu tienda de confianza para productos de belleza y maquillaje de alta calidad.
+                    <p style="color: rgba(255,255,255,0.7);">Tu tienda de confianza para productos de belleza y maquillaje de alta calidad.
                     </p>
                     <div class="mt-3">
                         <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
@@ -545,13 +548,13 @@
                         <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
-                <div class="col-md-3 mb-4">
+                {{-- <div class="col-md-3 mb-4">
                     <h5>Categorías</h5>
                     @foreach ($categories ?? [] as $category)
                     <a href="{{ route('categories.show', $category->id) }}" class="footer-link">{{ $category->name
                         }}</a>
                     @endforeach
-                </div>
+                </div> --}}
                 <div class="col-md-3 mb-4">
                     <h5>Información</h5>
                     <a href="#" class="footer-link">Sobre Nosotros</a>
@@ -569,27 +572,67 @@
                     <a href="#" class="footer-link">Favoritos</a>
                 </div>
             </div>
-            <hr class="mt-4 mb-3" style="border-color: rgba(255,255,255,0.1);">
+            {{-- <hr class="mt-4 mb-3" style="border-color: rgba(255,255,255,0.1);"> --}}
             <div class="row">
                 <div class="col-md-6 text-center text-md-start">
-                    <p class="mb-0 text-muted">&copy; {{ date('Y') }} Beauty Shop. Todos los derechos reservados.</p>
-                </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <img src="https://via.placeholder.com/250x30" alt="Métodos de pago" class="img-fluid"
-                        style="max-height: 30px;">
+                    <p style="color: rgba(255,255,255,0.7);">&copy; {{ date('Y') }} Beauty Shop. Todos los derechos reservados.</p>
                 </div>
             </div>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        function showProducts(categoryId) {
+        <script>
+        function clearActiveButtons() {
+            document.querySelectorAll('.nav-link').forEach(btn => btn.classList.remove('active'));
+        }
+
+        function showAllProducts() {
+            clearActiveButtons();
+            document.getElementById('all-products-btn').classList.add('active');
+
+            fetch('/api/products')
+                .then(response => response.json())
+                .then(data => {
+                    const productCards = document.getElementById('product-cards');
+                    productCards.innerHTML = '';
+
+                    if (data.length > 0) {
+                        data.forEach(product => {
+                            const card = `
+                                <div class="col-md-4 mb-3">
+                                    <div class="card">
+                                        <img src="${product.image}" class="card-img-top" alt="${product.name}" style="height: 200px; object-fit: cover;">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${product.name}</h5>
+                                            <p class="card-text">$${product.price}</p>
+                                            <a href="/products/${product.id}" class="btn btn-beauty">Comprar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            productCards.innerHTML += card;
+                        });
+                    } else {
+                        productCards.innerHTML = '<p>No hay productos disponibles.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching products:', error);
+                    const productCards = document.getElementById('product-cards');
+                    productCards.innerHTML = '<p>Error al cargar productos.</p>';
+                });
+        }
+
+        function showProducts(categoryId, btn) {
+            clearActiveButtons();
+            btn.classList.add('active');
+
             fetch(`/api/categories/${categoryId}/products`)
                 .then(response => response.json())
                 .then(data => {
                     const productCards = document.getElementById('product-cards');
-                    productCards.innerHTML = ''; // Limpiar tarjetas anteriores
+                    productCards.innerHTML = '';
 
                     if (data.length > 0) {
                         data.forEach(product => {
@@ -617,6 +660,11 @@
                     productCards.innerHTML = '<p>Error al cargar productos.</p>';
                 });
         }
+
+        // Load all products on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            showAllProducts();
+        });
     </script>
 </body>
 </html>
